@@ -1,7 +1,7 @@
-FROM php:7.2
+FROM php:7.1-cli-jessie
 
 LABEL maintainer="Felix Dulfer <felix@dulfer.me>" \
-      php="7.2"
+      php="7.1"
 
 ENV IMAGE_USER=php
 ENV HOME=/home/$IMAGE_USER
@@ -11,7 +11,7 @@ USER root
 
 WORKDIR /tmp
 
-COPY *.sh ./
+COPY ./php/scripts/jessie/*.sh ./
 RUN chmod +x *.sh
 
 RUN bash ./apt.sh \

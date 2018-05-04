@@ -1,7 +1,7 @@
-FROM php:7.1
+FROM php:7.2-cli-stretch
 
 LABEL maintainer="Felix Dulfer <felix@dulfer.me>" \
-      php="7.1"
+      php="7.2"
 
 ENV IMAGE_USER=php
 ENV HOME=/home/$IMAGE_USER
@@ -11,7 +11,7 @@ USER root
 
 WORKDIR /tmp
 
-COPY *.sh ./
+COPY ./php/scripts/stretch/*.sh ./
 RUN chmod +x *.sh
 
 RUN bash ./apt.sh \
