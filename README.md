@@ -1,4 +1,4 @@
-<img src="https://travis-ci.com/make-ci-great-again/docker-laravel-webpack-ci.svg?branch=master">
+[![Build Status](https://travis-ci.com/make-ci-great-again/docker-laravel-webpack-ci.svg?branch=master)](https://travis-ci.com/make-ci-great-again/docker-laravel-webpack-ci)
 
 ----
 
