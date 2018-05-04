@@ -11,10 +11,10 @@ USER root
 
 WORKDIR /tmp
 
-COPY ./php/7.2/packages.sh /tmp/
-RUN chmod +x /tmp/packages.sh
+COPY *.sh ./
+RUN chmod +x *.sh
 
-RUN bash ./packages.sh \
+RUN bash ./apt.sh \
     && adduser --disabled-password --gecos "" $IMAGE_USER && \
        echo "$IMAGE_USER  ALL = ( ALL ) NOPASSWD: ALL" >> /etc/sudoers && \
        mkdir -p /var/www/html && \
