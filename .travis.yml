@@ -8,7 +8,7 @@ before_script:
   - cd php/7.2
 
 script:
-  - travis_retry docker build -t .
+  - travis_retry docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2 .
 
 after_script:
   - docker images
