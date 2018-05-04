@@ -9,6 +9,17 @@ ENV COMPOSER_HOME=$HOME/.composer
 
 USER root
 
+WORKDIR /tmp
+
+COPY ./php/7.2/packages.sh /tmp/
+RUN chmod +x /tmp/packages.sh
+
+RUN bash ./packages.sh \
+    && adduser --disabled-password --gecos "" $IMAGE_USER && \
+       echo "$IMAGE_USER  ALL = ( ALL ) NOPASSWD: ALL" >> /etc/sudoers && \
+       mkdir -p /var/www/html && \
+       chown -R $IMAGE_USER:$IMAGE_USER /var/www $HOME /tmp
+
 # Get composer binary from composer image
 COPY --from=composer:1.6 /usr/bin/composer /usr/bin/composer
 
