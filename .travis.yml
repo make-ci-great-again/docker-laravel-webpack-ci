@@ -1,18 +1,34 @@
 language: bash
 services: docker
 
-env:
-  - VERSION=7.2 VARIANT=stretch/cli
-  - VERSION=7.1 VARIANT=jessie/cli
+jobs:
+  include:
+    - stage: hello
+      script:
+        - pwd
+        - ls -l
 
-install:
-  - git clone https://github.com/make-ci-great-again/docker-laravel-webpack-ci.git ~/image
+    - stage: install
+      install:
+        - git clone https://github.com/make-ci-great-again/docker-laravel-webpack-ci.git ~/images
 
-before_script:
-  - cd php/7.2
+    - stage: test
+      before_script:
+        - cd php/7.1
+      script:
+        - travis_retry docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1 .
+      after_script:
+        - docker images
 
-script:
-  - travis_retry docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2 .
+    - stage: test
+      before_script:
+        - cd php/7.2
+      script:
+        - travis_retry docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2 .
+      after_script:
+        - docker images
 
-after_script:
-  - docker images
+    - stage: deploy
+      script:
+        - docker images
+        - curl -X POST DOCKER_HUB_TRIGGER_URL
