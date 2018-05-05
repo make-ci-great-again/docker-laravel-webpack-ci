@@ -3,15 +3,6 @@ services: docker
 
 jobs:
   include:
-    - stage: hello
-      script:
-        - pwd
-        - ls -l
-
-    - stage: install
-      install:
-        - git clone https://github.com/make-ci-great-again/docker-laravel-webpack-ci.git ~/images
-
     - stage: test
       before_script:
         - cd php/7.1
@@ -31,4 +22,4 @@ jobs:
     - stage: deploy
       script:
         - docker images
-        - curl -X POST DOCKER_HUB_TRIGGER_URL
+        - curl -X POST $DOCKER_HUB_TRIGGER_URL
