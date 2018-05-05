@@ -1,7 +1,7 @@
-FROM php:7.2-cli-stretch
+FROM php:7.1-cli-jessie
 
 LABEL maintainer="Felix Dulfer <felix@dulfer.me>" \
-    php="7.2"
+    php="7.1"
 
 ENV IMAGE_USER=php
 ENV HOME=/home/$IMAGE_USER
@@ -36,8 +36,8 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     \
     \
     buildDeps=" \
-    default-libmysqlclient-dev \
     libbz2-dev \
+    libmysqlclient-dev \
     libsasl2-dev \
     " \
     runtimeDeps=" \
@@ -45,15 +45,15 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     libicu-dev \
     libjpeg-dev \
     libldap2-dev \
-    libmemcachedutil2 \
+    libmcrypt-dev \
     libmemcached-dev \
-    libpng-dev \
+    libmemcachedutil2 \
+    libpng12-dev \
     libpq-dev \
     libxml2-dev \
+    libkrb5-dev \
     libmagickwand-dev \
     imagemagick \
-    libssl-dev \
-    libkrb5-dev \
     " && \
     apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps --no-install-recommends \
     && docker-php-ext-install -j$(nproc) exif xml xmlrpc pcntl bcmath bz2 calendar iconv intl mbstring mysqli opcache pdo_mysql pdo_pgsql pgsql soap zip \
@@ -66,15 +66,11 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     && docker-php-source delete && \
     \
     \
-    docker-php-source extract \
-    && git clone --branch REL3_0 https://github.com/php-memcached-dev/php-memcached /usr/src/php/ext/memcached/ \
-    && docker-php-ext-install memcached \
-    && docker-php-ext-enable memcached \
-    && docker-php-source delete && \
-    \
-    pecl channel-update pecl.php.net \
-    && pecl install redis apcu mongodb imagick xdebug \
-    && docker-php-ext-enable redis apcu mongodb imagick xdebug &&\
+    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y mcrypt \
+    && docker-php-ext-install -j$(nproc) mcrypt \
+    && pecl channel-update pecl.php.net \
+    && pecl install redis mongodb xdebug apcu memcached imagick \
+    && docker-php-ext-enable redis mongodb xdebug apcu memcached imagick && \
     \
     \
     { \
@@ -97,6 +93,13 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     echo 'apc.stat=1'; \
     } > /usr/local/etc/php/conf.d/apcu-recommended.ini && \
     echo "memory_limit=512M" > /usr/local/etc/php/conf.d/zz-conf.ini && \
+    \
+    \
+    set -euf -o pipefail && \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+    && DEBIAN_FRONTEND=noninteractive apt-get install nodejs --no-install-recommends -yqq \
+    && npm i -g npm \
+    && curl -o- -L https://yarnpkg.com/install.sh | bash && \
     \
     \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \

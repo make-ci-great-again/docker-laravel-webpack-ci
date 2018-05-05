@@ -95,6 +95,26 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     echo "memory_limit=512M" > /usr/local/etc/php/conf.d/zz-conf.ini && \
     \
     \
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    build-essential \
+    apt-utils \
+    libc-client-dev\
+    autoconf \
+    dpkg-dev \
+    file \
+    g++ \
+    gcc \
+    libc-dev \
+    libpcre3-dev \
+    make \
+    pkg-config \
+    re2c && \
+    \
+    apt-get autoremove -y && \
+    apt-get autoclean -y && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    \
+    \
     adduser --disabled-password --gecos "" $IMAGE_USER && \
     echo "$IMAGE_USER  ALL = ( ALL ) NOPASSWD: ALL" >> /etc/sudoers && \
     mkdir -p /var/www/html && \

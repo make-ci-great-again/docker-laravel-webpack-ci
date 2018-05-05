@@ -13,9 +13,57 @@ jobs:
 
     - stage: test
       before_script:
+        - cd php/7.1/node/8
+      script:
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-8 .
+      after_script:
+        - docker images
+
+    - stage: test
+      before_script:
+        - cd php/7.1/node/9
+      script:
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-9 .
+      after_script:
+        - docker images
+
+    - stage: test
+      before_script:
+        - cd php/7.1/node/10
+      script:
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-10 .
+      after_script:
+        - docker images
+
+    - stage: test
+      before_script:
         - cd php/7.2
       script:
         - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2 .
+      after_script:
+        - docker images
+
+    - stage: test
+      before_script:
+        - cd php/7.2/node/8
+      script:
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-8 .
+      after_script:
+        - docker images
+
+    - stage: test
+      before_script:
+        - cd php/7.2/node/9
+      script:
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-9 .
+      after_script:
+        - docker images
+
+    - stage: test
+      before_script:
+        - cd php/7.2/node/10
+      script:
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-10 .
       after_script:
         - docker images
 
