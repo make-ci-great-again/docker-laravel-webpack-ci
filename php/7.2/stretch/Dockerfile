@@ -11,7 +11,7 @@ USER root
 
 WORKDIR /tmp
 
-COPY /php/scripts/stretch/*.sh ./
+COPY ./*.sh ./
 RUN chmod +x *.sh
 
 RUN bash ./apt.sh && \
