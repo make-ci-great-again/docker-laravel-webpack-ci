@@ -95,7 +95,6 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     echo "memory_limit=512M" > /usr/local/etc/php/conf.d/zz-conf.ini && \
     \
     \
-    set -euf -o pipefail && \
     curl -sL https://deb.nodesource.com/setup_9.x | bash - \
     && DEBIAN_FRONTEND=noninteractive apt-get install nodejs --no-install-recommends -yqq \
     && npm i -g npm \
