@@ -16,7 +16,7 @@ jobs:
       before_script:
         - cd php/7.1
       script:
-        - travis_retry docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1 .
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1 .
       after_script:
         - docker images
 
@@ -24,7 +24,7 @@ jobs:
       before_script:
         - cd php/7.2
       script:
-        - travis_retry docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2 .
+        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2 .
       after_script:
         - docker images
 
