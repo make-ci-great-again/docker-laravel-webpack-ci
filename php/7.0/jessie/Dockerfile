@@ -11,7 +11,7 @@ USER root
 
 WORKDIR /tmp
 
-COPY ./php/scripts/jessie/*.sh ./
+COPY /php/scripts/jessie/*.sh ./
 RUN chmod +x *.sh
 
 RUN bash ./apt.sh && \
