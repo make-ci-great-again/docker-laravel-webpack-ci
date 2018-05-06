@@ -88,6 +88,9 @@ jobs:
         - npm -v
 
     - stage: deploy
+      branches:
+        only:
+          - master
       script:
         - docker images
         - curl -X POST $DOCKER_HUB_TRIGGER_URL
