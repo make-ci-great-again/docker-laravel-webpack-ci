@@ -110,7 +110,6 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     gcc \
     libc-dev \
     libpcre3-dev \
-    make \
     pkg-config \
     re2c && \
     \
