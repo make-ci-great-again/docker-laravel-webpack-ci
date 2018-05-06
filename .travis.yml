@@ -4,88 +4,112 @@ services: docker
 jobs:
   include:
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.1
       before_script:
         - cd php/7.1
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
 
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-8
       before_script:
         - cd php/7.1/node/8
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-8 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
-        - node -v
-        - npm -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
+        - docker run --rm -t $IMAGE node -v
+        - docker run --rm -t $IMAGE npm -v
 
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-9
       before_script:
         - cd php/7.1/node/9
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-9 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
-        - node -v
-        - npm -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
+        - docker run --rm -t $IMAGE node -v
+        - docker run --rm -t $IMAGE npm -v
 
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-10
       before_script:
         - cd php/7.1/node/10
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.1-node-10 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
-        - node -v
-        - npm -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
+        - docker run --rm -t $IMAGE node -v
+        - docker run --rm -t $IMAGE npm -v
 
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.2
       before_script:
         - cd php/7.2
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
 
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-8
       before_script:
         - cd php/7.2/node/8
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-8 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
-        - node -v
-        - npm -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
+        - docker run --rm -t $IMAGE node -v
+        - docker run --rm -t $IMAGE npm -v
 
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-9
       before_script:
         - cd php/7.2/node/9
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-9 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
-        - node -v
-        - npm -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
+        - docker run --rm -t $IMAGE node -v
+        - docker run --rm -t $IMAGE npm -v
 
     - stage: test
+      env:
+        - IMAGE=make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-10
       before_script:
         - cd php/7.2/node/10
       script:
-        - docker build -t make-ci-great-again/docker-laravel-webpack-ci:php-7.2-node-10 .
+        - docker build -t $IMAGE .
       after_script:
         - docker images
-        - php -v
-        - node -v
-        - npm -v
+        - docker run --rm -t $IMAGE php -v
+        - docker run --rm -t $IMAGE composer -V
+        - docker run --rm -t $IMAGE node -v
+        - docker run --rm -t $IMAGE npm -v
 
     - stage: deploy
       branches:
